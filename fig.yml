@@ -26,3 +26,22 @@ kafka:
   # set the hostname explicitly:
   hostname: kafka
 
+# Hadoop/HDFS/YARN container based on sequenceiq/hadoop-docker:2.6.0.
+# (Hadoop executables are in /usr/local/hadoop/bin.) Since we need
+# to install Jubatus, add JubatusOnYARN files to HDFS and add some
+# custom configuration, we will extend the image.
+hdpnode:
+  # Use the Dockerfile from the `hadoop/` directory.
+  build: hadoop
+  # This node will also run the JubaQL Processor instances (so we
+  # need access to Kafka) and the Jubatus instances (so we need
+  # access to a Zookeeper instance):
+  links:
+  - zookeeper:zk
+  - kafka:kafka
+  # If we don't set the hostname here, the `hostname` command run in
+  # the container will return the container's id, which cannot be looked
+  # up from other containers. This will confuse fluentd. Therefore we
+  # set the hostname explicitly:
+  hostname: hdpnode
+
