@@ -1,0 +1,9 @@
+# To demo JubaQL to a full extent, we need a Hadoop/HDFS/YARN cluster
+# and a Kafka queue. Also, we need data in these sources, so we also
+# add a fluentd container to pipe data into HDFS and Kafka.
+
+# Kafka needs a Zookeeper instance. This does not need much configuring,
+# so we just take a standard image.
+zookeeper:
+  image: jplock/zookeeper
+
