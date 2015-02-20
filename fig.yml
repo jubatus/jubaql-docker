@@ -45,3 +45,16 @@ hdpnode:
   # set the hostname explicitly:
   hostname: hdpnode
 
+# fluentd container based on jplock/fluentd:1.1.20. (fluentd
+# executables are in /usr/lib/fluent/ruby/bin.) Since we need to
+# install additional modules and add some custom configuration, we
+# will extend the image.
+fluentd:
+  # Use the Dockerfile from the `fluentd/` directory.
+  build: fluentd
+  # This node will write to HDFS and Kafka, so it needs to access
+  # both of those containers.
+  links:
+  - hdpnode:hdpnode
+  - kafka:kafka
+
