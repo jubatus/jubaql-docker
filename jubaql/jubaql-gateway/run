@@ -9,6 +9,6 @@ export HADOOP_CONF_DIR=$JQL_DIR/processor/src/main/resources
 exec java -Dspark.distribution="$SPARK_DIST" \
   -Drun.mode=production:1:3 \
   -Djubaql.zookeeper=zk:2181 \
-  -Djubaql.processor.fatjar=$JQL_DIR/processor/$ARCH/jubaql-processor-assembly-1.1.0.jar \
-  -jar $JQL_DIR/gateway/$ARCH/jubaql-gateway-assembly-1.1.0.jar \
+  -Djubaql.processor.fatjar=$JQL_DIR/processor/$ARCH/jubaql-processor-assembly-1.2.0.jar \
+  -jar $JQL_DIR/gateway/$ARCH/jubaql-gateway-assembly-1.2.0.jar \
   -i $MY_IP
