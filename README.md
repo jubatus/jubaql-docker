@@ -8,3 +8,4 @@ These files are only meant for demonstration purposes and to document build step
 ## What does this Docker environment contain?
 
 * *zookeeper* provides the Zookeeper functionality for Kafka.
+* *kafka* provides a message queue that can be used for stream processing.

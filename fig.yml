@@ -7,3 +7,22 @@
 zookeeper:
   image: jplock/zookeeper
 
+# Run Kafka using the Zookeeper instance above. This does not need much
+# configuring, so we just take a standard image.
+# (Kafka executables are in /opt/kafka_2.8.0-0.8.1.1/bin.)
+kafka:
+  image: wurstmeister/kafka:0.8.1.1-1
+  # Use the above zookeeper container:
+  links:
+  - zookeeper:zk
+  # Run on the standard port 9092 and create new topics with
+  # 10 partitions by default.
+  environment:
+    KAFKA_ADVERTISED_PORT: 9092
+    KAFKA_NUM_PARTITIONS: 10
+  # If we don't set the hostname here, the `hostname` command run in
+  # the container will return the container's id, which cannot be looked
+  # up from other containers. This will confuse fluentd. Therefore we
+  # set the hostname explicitly:
+  hostname: kafka
+
