@@ -7,7 +7,10 @@ These files are only meant for demonstration purposes and to document build step
 
 ## What does this Docker environment contain?
 
+There are a total of five containers:
+
 * *zookeeper* provides the Zookeeper functionality for Kafka.
 * *kafka* provides a message queue that can be used for stream processing.
 * *hdpnode* is a single-container Hadoop cluster with YARN and HDFS. The JubaQL executors will run in this container, therefore it also contains a Jubatus installation.
 * *fluentd* runs an instance of fluentd that generates dummy data with timestamps and writes it both to HDFS and Kafka.
+* *jubaql* runs the JubaQL gateway as a daemon and provides the JubaQL client shell via the `jubaql` command.

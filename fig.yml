@@ -58,3 +58,11 @@ fluentd:
   - hdpnode:hdpnode
   - kafka:kafka
 
+# JubaQL Server container based on phusion/baseimage:0.9.16.
+jubaql:
+  # Use the Dockerfile from the `jubaql/` directory.
+  build: jubaql
+  # This node will submit YARN jobs, so it needs to access the
+  # Hadoop container.
+  links:
+  - hdpnode:hdpnode

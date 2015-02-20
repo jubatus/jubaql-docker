@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cd /root/jubaql-client
+exec ./target/start "$@"
+
