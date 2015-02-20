@@ -9,7 +9,7 @@ cd $HADOOP_PREFIX
 # cannot be reached)
 bin/hadoop dfsadmin -safemode leave
 # copy the JubatusOnYARN files to the required location
-bin/hadoop fs -copyFromLocal /root/JubatusOnYarn/jubatusonyarn/jubatus-on-yarn /
+bin/hadoop fs -copyFromLocal /root/jubatus-on-yarn /
 
 # create directory structure for fluentd output
 bin/hadoop fs -mkdir /user/fluentd

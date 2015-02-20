@@ -3,9 +3,12 @@ FROM sequenceiq/hadoop-docker:2.6.0
 
 # install Jubatus
 RUN rpm -Uvh http://download.jubat.us/yum/rhel/6/stable/x86_64/jubatus-release-6-1.el6.x86_64.rpm
-RUN yum install -y jubatus jubatus-client git
+RUN yum install -y jubatus jubatus-client git wget
 
-# TODO get JubatusOnYARN from the published zip files
+# get JubatusOnYARN from the release zip files
+RUN cd /root && \
+  wget https://github.com/jubatus/jubatus-on-yarn/releases/download/v1.0.0/jubatus-on-yarn-1.0.0.tgz && \
+  tar -xzf jubatus-on-yarn-1.0.0.tgz
 
 # we need the Hadoop configuration files on the classpath for
 # JubatusOnYARN to start Jubatus successfully
