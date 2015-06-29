@@ -18,17 +18,17 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -y --force-yes install \
 
 # add Spark distribution
 RUN cd /usr/local && \
-  wget http://d3kbcqa49mib13.cloudfront.net/spark-1.1.1-bin-hadoop2.4.tgz && \
-  tar -xzf spark-1.1.1-bin-hadoop2.4.tgz
-ENV SPARK_DIST /usr/local/spark-1.1.1-bin-hadoop2.4/
+  wget http://d3kbcqa49mib13.cloudfront.net/spark-1.2.2-bin-hadoop2.4.tgz && \
+  tar -xzf spark-1.2.2-bin-hadoop2.4.tgz
+ENV SPARK_DIST /usr/local/spark-1.2.2-bin-hadoop2.4/
 
 # download and build JubaQL client
 WORKDIR /root
-RUN git clone -b v1.2.0 https://github.com/jubatus/jubaql-client.git
+RUN git clone -b v1.3.0 https://github.com/jubatus/jubaql-client.git
 RUN cd jubaql-client/ && sbt start-script
 
 # download and build JubaQL server
-RUN git clone -b v1.2.0 https://github.com/jubatus/jubaql-server.git
+RUN git clone -b v1.3.0 https://github.com/jubatus/jubaql-server.git
 RUN cd jubaql-server/gateway/ && sbt assembly
 COPY conf/ /root/jubaql-server/processor/src/main/resources
 RUN cd jubaql-server/processor/ && sbt assembly

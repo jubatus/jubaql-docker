@@ -29,12 +29,15 @@ There are a total of five containers:
   `jubaql`  
   and you are ready to go.
 * For example, you could run the following commands:
-    * `CREATE CLASSIFIER MODEL ctr_predict WITH (label: "Click", datum:["Depth", "Position", "Tokens_query", "Tokens_keyword", "Tokens_title", "Tokens_description", "Gender", "Age"]) config = '{"method": "AROW","converter": {  "num_filter_types": {},  "num_filter_rules": [],  "string_filter_types": {},   "string_filter_rules": [], "num_types": {},  "num_rules": [{ "key" : "*", "type" : "num" }],"string_types": {},"string_rules": [{ "key": "*", "type": "space", "sample_weight": "bin", "global_weight": "bin" } ]},"parameter": {"regularization_weight" : 1.0}}'`
-    * `CREATE DATASOURCE kdd2012 FROM (STORAGE: "hdfs:///user/fluentd/kdddummy", STREAM: "kafka://zk:2181/kdddummy/1")`
-    * `UPDATE MODEL ctr_predict USING train FROM kdd2012`  
+    * `CREATE CLASSIFIER MODEL ctr_predict (label: Click) AS Depth, Position, Tokens_query, Tokens_keyword, Tokens_title, Tokens_description, Gender, Age CONFIG '{"method": "AROW", "parameter": {"regularization_weight" : 1.0}}'`
+    * `CREATE DATASOURCE kdd2012(Click string, Depth numeric, Position numeric, Tokens_query string, Tokens_keyword string, Tokens_title string, Tokens_description string, Gender string, Age numeric) FROM (STORAGE: "hdfs:///user/fluentd/kdddummy", STREAM: "kafka://zk:2181/kdddummy/1")`
+    * `STATUS`  
+      (This will show the status of the data source and the Jubatus instance.)
+    * `UPDATE MODEL ctr_predict USING train FROM kdd2012`
+    * `START PROCESSING kdd2012`  
       (Wait a couple of seconds after this statement.)
-    * `ANALYZE '{"Gender": "female"}' BY MODEL ctr_predict USING classify`  
-      (You should see output indicating how likely a female person will click on an ad banner.)
+    * `ANALYZE '{"Gender":"female", "Impression":1, "DisplayURL":14340390157469404125, "AdId":6434954, "AdvertiserId":23777, "Depth":2, "Position":1, "Tokens_query":"", "Tokens_keyword":"", "Tokens_title":"", "Tokens_description":"", "Age":2}' BY MODEL ctr_predict USING classify`  
+      (You should see output indicating how likely a person with the given properties will click on an ad banner.)
     * `STOP PROCESSING`
     * `SHUTDOWN`
 
